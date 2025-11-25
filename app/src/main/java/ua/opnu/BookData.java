@@ -6,8 +6,8 @@ package ua.opnu;
 public class BookData implements Comparable<BookData> {
     private final String title;
     private final String author;
-    private final int reviews; // Кількість оцінок
-    private final double total; // Загальна сума оцінок
+    private final int reviews;
+    private final double total;
 
     public BookData(String title, String author, int reviews, double total) {
         this.title = title;
@@ -18,9 +18,7 @@ public class BookData implements Comparable<BookData> {
 
     public String getTitle() { return title; }
 
-    // Метод для розрахунку рейтингу
     public double getRating() {
-        // Перевірка, щоб уникнути ділення на нуль
         return (reviews > 0) ? total / reviews : 0.0;
     }
 
@@ -30,16 +28,15 @@ public class BookData implements Comparable<BookData> {
     }
 
     /**
-     * Вимога: Книга з вищим рейтингом "менше", ніж книга з нижчим (зворотний порядок).
-     * Якщо рейтинги рівні, порівняти за назвою (звичайний порядок).
+     * Книга з вищим рейтингом "менше" (повертає 1), ніж книга з нижчим (зворотний порядок).
+     * Якщо рейтинги рівні, порівнює за назвою (звичайний порядок).
      */
     @Override
     public int compareTo(BookData other) {
-        // 1. Порівняння за рейтингом (зворотний порядок)
         double thisRating = this.getRating();
         double otherRating = other.getRating();
 
-        // Порівнюємо otherRating з thisRating, щоб отримати зворотний порядок
+        // Порівнюємо otherRating з thisRating для зворотного порядку
         if (otherRating > thisRating) {
             return 1;
         }
@@ -47,7 +44,7 @@ public class BookData implements Comparable<BookData> {
             return -1;
         }
 
-        // 2. Якщо рейтинги рівні, порівнюємо за назвою (звичайний порядок)
+        // Якщо рейтинги рівні, порівнюємо за назвою
         return this.title.compareTo(other.title);
     }
 }

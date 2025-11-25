@@ -14,7 +14,6 @@ public class GenericTwoTuple<T, V> {
         this.second = second;
     }
 
-    // Додаємо гетери для кращого доступу
     public T getFirst() { return first; }
     public V getSecond() { return second; }
 

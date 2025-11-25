@@ -1,13 +1,13 @@
 package ua.opnu;
 
 /**
- * Завдання 6: Узагальнений кортеж для трьох елементів, що використовує композицію GenericTwoTuple.
+ * Завдання 6: Узагальнений кортеж для трьох елементів.
  * @param <T> Тип першого елемента.
  * @param <V> Тип другого елемента.
  * @param <S> Тип третього елемента.
  */
 public class GenericThreeTuple<T, V, S> {
-    // Композиція: використовуємо GenericTwoTuple для перших двох елементів
+    // Використовуємо композицію
     private final GenericTwoTuple<T, V> twoTuple;
     public final S third;
 
@@ -16,11 +16,9 @@ public class GenericThreeTuple<T, V, S> {
         this.third = third;
     }
 
-    // Гетери для трьох елементів
     public T getFirst() { return twoTuple.first; }
     public V getSecond() { return twoTuple.second; }
     public S getThird() { return third; }
-
 
     @Override
     public String toString() {
