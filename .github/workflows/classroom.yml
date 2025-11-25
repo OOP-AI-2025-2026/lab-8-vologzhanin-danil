@@ -37,26 +37,32 @@ jobs:
       # 1) Compilation
       - name: Compile (skip tests)
         run: mvn -B -ntp -DskipTests=true clean package
+        working-directory: app # ВИПРАВЛЕНО: Запускаємо у папці з pom.xml
 
       # 2) Unit tests
       - name: Run Unit Tests
         run: mvn -B -ntp test
+        working-directory: app # ВИПРАВЛЕНО
 
       # 3) Checkstyle
       - name: Run Checkstyle
         run: mvn -B -ntp checkstyle:checkstyle || true
+        working-directory: app # ВИПРАВЛЕНО
 
       # 4) PMD
       - name: Run PMD
         run: mvn -B -ntp pmd:check || true
+        working-directory: app # ВИПРАВЛЕНО
 
       # 5) SpotBugs
       - name: Run SpotBugs
         run: mvn -B -ntp com.github.spotbugs:spotbugs-maven-plugin:check || true
+        working-directory: app # ВИПРАВЛЕНО
 
       # 6) Spotless (soft check)
       - name: Verify Code Formatting (Spotless, soft)
         run: mvn -B -ntp spotless:check || echo "⚠️ Spotless found formatting issues (ignored)"
+        working-directory: app # ВИПРАВЛЕНО
 
       # ==== ChatGPT: review all files in package ua.opnu ====
       - name: Collect ua.opnu Java files
@@ -88,7 +94,7 @@ jobs:
           model   = os.environ.get("CHATGPT_MODEL","gpt-5-nano")
           system_instructions = os.environ.get("CHATGPT_PROMPT")
 
-          files = [p.strip() for p in open("java_files_for_review.txt","r").read().splitlines() if p.strip()]
+          files = [p.strip() for p in open("java_files_for_review.txt","r",encoding="utf-8").read().splitlines() if p.strip()]
           text = ""
           for fp in files:
               with open(fp,"r",encoding="utf-8",errors="ignore") as f:
